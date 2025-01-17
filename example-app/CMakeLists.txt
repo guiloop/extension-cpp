@@ -1,13 +1,3 @@
-# Extension cpp
-
-Download and unzip libtorch for MacOS CPU Intel 
-```
-wget https://download.pytorch.org/libtorch/nightly/cpu/libtorch-macos-x86_64-latest.zip
-unzip libtorch-macos-x86_64-latest.zip
-```
-
-Create new a CMakeLists.txt file
-```
 cmake_minimum_required(VERSION 3.18 FATAL_ERROR)
 project(example-app)
 
@@ -29,18 +19,3 @@ if (MSVC)
                      ${TORCH_DLLS}
                      $<TARGET_FILE_DIR:example-app>)
 endif (MSVC)
-
-```
-
-Build
-```
-mkdir build
-cd build
-cmake -DCMAKE_PREFIX_PATH=/Users/cat/Downloads/libtorch/ ..
-cmake --build . --config Release
-```
-
-Execute
-```
-./example-app
-```
