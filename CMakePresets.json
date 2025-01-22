@@ -1,0 +1,27 @@
+{
+    "version": 8,
+    "configurePresets": [
+        {
+            "name": "Clang_15.0.0_x86_64-apple-darwin23.6.0",
+            "displayName": "Clang_15.0.0_x86_64-apple-darwin23.6.0",
+            "description": "Using compilers: C = /usr/bin/clang, CXX = /usr/bin/clang++",
+            "binaryDir": "${sourceDir}/out/build/${presetName}",
+            "cacheVariables": {
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/${presetName}",
+                "CMAKE_C_COMPILER": "/usr/bin/clang",
+                "CMAKE_CXX_COMPILER": "/usr/bin/clang++",
+                "CMAKE_EXPORT_COMPILE_COMMANDS": true,
+                "CMAKE_BUILD_TYPE": "Debug",
+                "Python_EXECUTABLE": "/Users/cat/miniconda3/envs/pytorch_env/bin/python"
+            }
+        }
+    ],
+    "testPresets": [
+        {
+            "name": "Clang_15.0.0_x86_64-apple-darwin23.6.0",
+            "displayName": "Clang_15.0.0_x86_64-apple-darwin23.6.0",
+            "description": "Using Clang_15.0.0_x86_64-apple-darwin23.6.0 config preset.",
+            "configurePreset": "Clang_15.0.0_x86_64-apple-darwin23.6.0"
+        }
+    ]
+}

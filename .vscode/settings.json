@@ -40,7 +40,33 @@
         "sstream": "cpp",
         "variant": "cpp",
         "algorithm": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "any": "cpp",
+        "__split_buffer": "cpp",
+        "__hash_table": "cpp",
+        "__node_handle": "cpp",
+        "__tree": "cpp",
+        "array": "cpp",
+        "charconv": "cpp",
+        "cinttypes": "cpp",
+        "condition_variable": "cpp",
+        "csignal": "cpp",
+        "deque": "cpp",
+        "forward_list": "cpp",
+        "fstream": "cpp",
+        "iomanip": "cpp",
+        "list": "cpp",
+        "map": "cpp",
+        "optional": "cpp",
+        "queue": "cpp",
+        "regex": "cpp",
+        "set": "cpp",
+        "span": "cpp",
+        "stack": "cpp",
+        "typeindex": "cpp",
+        "unordered_map": "cpp",
+        "unordered_set": "cpp",
+        "valarray": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled",
     "editor.tokenColorCustomizations": {
@@ -64,5 +90,8 @@
                 }
             }
         ]
-    }
+    },
+    "gtest-adapter.debugConfig": [
+        "(ctest) Launch"
+    ]
 }
