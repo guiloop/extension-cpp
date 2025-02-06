@@ -92,6 +92,8 @@
         ]
     },
     "gtest-adapter.debugConfig": [
-        "(ctest) Launch"
-    ]
+        "(lldb) Launch"
+    ],
+    "cmake.configureArgs": ["-G", "Ninja"],
+    "cmake.buildArgs": ["--config", "Debug", "-j8"]
 }

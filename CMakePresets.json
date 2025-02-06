@@ -7,6 +7,9 @@
             "description": "Using compilers: C = /usr/bin/clang, CXX = /usr/bin/clang++",
             "binaryDir": "${sourceDir}/out/build/${presetName}",
             "cacheVariables": {
+                "G": "",
+                "Ninja": "",
+                "j8": "",
                 "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/${presetName}",
                 "CMAKE_C_COMPILER": "/usr/bin/clang",
                 "CMAKE_CXX_COMPILER": "/usr/bin/clang++",
@@ -14,6 +17,41 @@
                 "CMAKE_BUILD_TYPE": "Debug",
                 "Python_EXECUTABLE": "/Users/cat/miniconda3/envs/pytorch_env/bin/python"
             }
+        },
+        {
+            "name": "Clang_14.0.0_x86_64-pc-linux-gnu",
+            "displayName": "Clang_14.0.0_x86_64-pc-linux-gnu",
+            "description": "Using compilers: C = /usr/bin/clang, CXX = /usr/bin/clang++",
+            "binaryDir": "${sourceDir}/out/build/${presetName}",
+            "cacheVariables": {
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/${presetName}",
+                "CMAKE_C_COMPILER": "/usr/bin/clang",
+                "CMAKE_CXX_COMPILER": "/usr/bin/clang++",
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "gcc_preset",
+            "displayName": "GCC configure preset",
+            "description": "Using compilers: C = /usr/bin/gcc, CXX = /usr/bin/g++",
+            "binaryDir": "${sourceDir}/build",
+            "cacheVariables": {
+                "CMAKE_MAKE_PROGRAM": "/usr/local/bin/ninja",
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/build",
+                "CMAKE_C_COMPILER": "/usr/bin/gcc",
+                "CMAKE_CXX_COMPILER": "/usr/bin/g++",
+                "CMAKE_EXPORT_COMPILE_COMMANDS": true,
+                "CMAKE_BUILD_TYPE": "Debug",
+                "Python_EXECUTABLE": "/Users/cat/miniconda3/envs/pytorch_env/bin/python"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "gcc_preset",
+            "description": "GCC build preset",
+            "displayName": "A GCC build preset is using gcc config preset.",
+            "configurePreset": "gcc_preset"
         }
     ],
     "testPresets": [
@@ -22,6 +60,18 @@
             "displayName": "Clang_15.0.0_x86_64-apple-darwin23.6.0",
             "description": "Using Clang_15.0.0_x86_64-apple-darwin23.6.0 config preset.",
             "configurePreset": "Clang_15.0.0_x86_64-apple-darwin23.6.0"
+        },
+        {
+            "name": "Clang_14.0.0_x86_64-pc-linux-gnu",
+            "displayName": "Clang_14.0.0_x86_64-pc-linux-gnu",
+            "description": "Using Clang_14.0.0_x86_64-pc-linux-gnu config preset.",
+            "configurePreset": "Clang_14.0.0_x86_64-pc-linux-gnu"
+        },
+        {
+            "name": "gcc_preset",
+            "displayName": "GCC test preset",
+            "description": "A GCC test preset is using gcc config preset.",
+            "configurePreset": "gcc_preset"
         }
     ]
 }

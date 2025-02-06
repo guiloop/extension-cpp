@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.26)
 
 project(custom_ops)
 
+option(USE_NINJA "Ninja" ON)
 option(USE_CCACHE "Attempt using CCache to wrap the compilation" ON)
 
 # require C++17
