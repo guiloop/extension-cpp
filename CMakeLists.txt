@@ -1,14 +1,13 @@
 cmake_minimum_required(VERSION 3.26)
 
-project(custom_ops)
+project(custom_ops LANGUAGES C CXX)
 
-option(USE_NINJA "Ninja" ON)
 option(USE_CCACHE "Attempt using CCache to wrap the compilation" ON)
+option(TARGET_DEVICE "CUDA by default, can be overridden by using -DTARGET_DEVICE=... (used by setup.py)" "cuda")
 
-# require C++17
 set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(CMAKE_COLOR_DIAGNOSTICS ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
@@ -34,18 +33,26 @@ endif()
 # setup CMake module path, defines path for include() and find_package()
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
-# Update cmake's `CMAKE_PREFIX_PATH` with torch location.
-include(${CMAKE_CURRENT_LIST_DIR}/cmake/utils.cmake)
 
-# Add Torch dependency.
+find_package(Python REQUIRED COMPONENTS Interpreter Development)
+
+
+# Find CUDDA denpendencies
+message(STATUS "_____TARGET_DEVICE=${TARGET_DEVICE}")
+# if(TARGET_DEVICE STREQUAL "cuda")
+#   enable_language(CUDA)
+#   find_package(NCCL REQUIRED)
+# endif()
+
+# Find Torch dependency.
+include(${CMAKE_CURRENT_LIST_DIR}/cmake/utils.cmake)
 run_python(TORCH_PREFIX_PATH
     "import torch; print(torch.utils.cmake_prefix_path)"
     "Failed to locate Torch path."
 )
+# Update cmake's `CMAKE_PREFIX_PATH` with torch location.
 list(APPEND CMAKE_PREFIX_PATH ${TORCH_PREFIX_PATH})
-
 find_package(Torch REQUIRED)
-
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${TORCH_CXX_FLAGS}")
 
 
