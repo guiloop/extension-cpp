@@ -22,3 +22,6 @@ cc_test(
     torch
     GTest::gtest_main
 )
+
+# process cuda/CMakeLists.txt
+add_subdirectory(cuda)

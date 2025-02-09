@@ -3,22 +3,22 @@ include(cc_test)
 
 cc_library(
   NAME 
-    muladd
+    muladd_cuda
   HDRS
-    muladd.h
+    muladd.cuh
   SRCS
-    muladd.cpp
+    muladd.cu
   DEPS 
     torch
 )
 
 cc_test(
   NAME
-    muladd_test
+    muladd_cuda_test
   SRCS
-    muladd_test.cpp
+    muladd_test.cu
   DEPS
-    :muladd
+    :muladd_cuda
     torch
     GTest::gtest_main
 )

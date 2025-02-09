@@ -38,11 +38,10 @@ find_package(Python REQUIRED COMPONENTS Interpreter Development)
 
 
 # Find CUDDA denpendencies
-message(STATUS "_____TARGET_DEVICE=${TARGET_DEVICE}")
-# if(TARGET_DEVICE STREQUAL "cuda")
-#   enable_language(CUDA)
-#   find_package(NCCL REQUIRED)
-# endif()
+if(TARGET_DEVICE STREQUAL "cuda")
+  enable_language(CUDA)
+  # find_package(NCCL REQUIRED)
+endif()
 
 # Find Torch dependency.
 include(${CMAKE_CURRENT_LIST_DIR}/cmake/utils.cmake)
