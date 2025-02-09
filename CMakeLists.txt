@@ -14,6 +14,15 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_MESSAGE_LOG_LEVEL STATUS)
 set(CMAKE_VERBOSE_MAKEFILE ON)
 
+#
+# Supported python versions.  These versions will be searched in order, the
+# first match will be selected.  These should be kept in sync with setup.py.
+#
+set(PYTHON_SUPPORTED_VERSIONS "3.9" "3.10" "3.11" "3.12")
+
+# Supported NVIDIA architectures.
+set(CUDA_SUPPORTED_ARCHS "7.0;7.2;7.5;8.0;8.6;8.7;8.9;9.0")
+
 # use CCache to speeds up recompilation
 if(USE_CCACHE)
   find_program(CCACHE_PROGRAM ccache)
@@ -33,9 +42,9 @@ endif()
 # setup CMake module path, defines path for include() and find_package()
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
-
-find_package(Python REQUIRED COMPONENTS Interpreter Development)
-
+# Find Python dependency.
+include(${CMAKE_CURRENT_LIST_DIR}/cmake/find_python.cmake)
+find_python(${Python_EXECUTABLE} "${PYTHON_SUPPORTED_VERSIONS}")
 
 # Find CUDDA denpendencies
 if(TARGET_DEVICE STREQUAL "cuda")
@@ -44,16 +53,8 @@ if(TARGET_DEVICE STREQUAL "cuda")
 endif()
 
 # Find Torch dependency.
-include(${CMAKE_CURRENT_LIST_DIR}/cmake/utils.cmake)
-run_python(TORCH_PREFIX_PATH
-    "import torch; print(torch.utils.cmake_prefix_path)"
-    "Failed to locate Torch path."
-)
-# Update cmake's `CMAKE_PREFIX_PATH` with torch location.
-list(APPEND CMAKE_PREFIX_PATH ${TORCH_PREFIX_PATH})
-find_package(Torch REQUIRED)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${TORCH_CXX_FLAGS}")
-
+include(${CMAKE_CURRENT_LIST_DIR}/cmake/find_torch.cmake)
+find_torch()
 
 # target_link_libraries(custom_ops "${TORCH_LIBRARIES}")
 # message(TORCH_LIBRARIES="${TORCH_LIBRARIES}")

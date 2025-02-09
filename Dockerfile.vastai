@@ -1,5 +1,5 @@
 ARG UBUNTU_VERSION=22.04
-ARG CUDA_VERSION=12.4.1
+ARG CUDA_VERSION=12.1.1
 FROM vastai/base-image:cuda-${CUDA_VERSION}-cudnn8-devel-ubuntu${UBUNTU_VERSION}
 
 LABEL maintainer="guiloop.com@gmail.com"
@@ -9,19 +9,10 @@ ENV DEBIAN_FRONTEND=noninteractive
 COPY scripts/common/install_base.sh install_base.sh
 RUN bash ./install_base.sh && rm install_base.sh
 
-
+# Install python
+ARG PYTHON_VERSION=3.10
 RUN PYTHON_VERSION_STR=$(echo ${PYTHON_VERSION} | sed 's/\.//g') && \
     echo "export PYTHON_VERSION_STR=${PYTHON_VERSION_STR}" >> /etc/environment
-
-# Install python
-ARG PYTHON_VERSION=3.12
-# RUN apt-get update -q -y \
-#     && apt-get install -y python${PYTHON_VERSION} python${PYTHON_VERSION}-dev python${PYTHON_VERSION}-venv \
-#     && update-alternatives --install /usr/bin/python3 python3 /usr/bin/python${PYTHON_VERSION} 1 \
-#     && update-alternatives --set python3 /usr/bin/python${PYTHON_VERSION} \
-#     && ln -sf /usr/bin/python${PYTHON_VERSION}-config /usr/bin/python3-config \
-#     && curl -sS https://bootstrap.pypa.io/get-pip.py | python${PYTHON_VERSION} \
-#     && python3 --version && python3 -m pip --version
 RUN echo 'tzdata tzdata/Areas select America' | debconf-set-selections \
     && echo 'tzdata tzdata/Zones/America select Los_Angeles' | debconf-set-selections \
     && apt-get update -y \
@@ -36,29 +27,23 @@ RUN echo 'tzdata tzdata/Areas select America' | debconf-set-selections \
     && curl -sS https://bootstrap.pypa.io/get-pip.py | python${PYTHON_VERSION} \
     && python3 --version && python3 -m pip --version
 
-# Install gcc
-# ARG GCC_VERSION=12
-# RUN apt-get update \
-#     && apt-get install -y --no-install-recommends \
-#     software-properties-common gpg-agent
-# COPY scripts/common/install_gcc.sh install_gcc.sh
-# RUN bash ./install_gcc.sh && rm install_gcc.sh
-# RUN gcc --version; g++ --version
+# Install GCC
+ARG GCC_VERSION=12
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+    software-properties-common gpg-agent
+COPY scripts/common/install_gcc.sh install_gcc.sh
+RUN bash ./install_gcc.sh && rm install_gcc.sh
+RUN gcc --version; g++ --version
 
-# Upgrade to GCC 10 to avoid https://gcc.gnu.org/bugzilla/show_bug.cgi?id=92519
-# as it was causing spam when compiling the CUTLASS kernels
-RUN apt-get install -y gcc-10 g++-10
-RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-10 110 --slave /usr/bin/g++ g++ /usr/bin/g++-10
-RUN <<EOF
-gcc --version
-EOF
-
+# Install CMAKE
 ARG CMAKE_VERSION=3.29.3
 COPY scripts/common/install_cmake.sh install_cmake.sh
 RUN if [ -n "${CMAKE_VERSION}" ]; then bash ./install_cmake.sh; fi
 RUN rm install_cmake.sh
 RUN cmake --version
 
+# Install NINJA
 ARG NINJA_VERSION=1.11.1
 COPY scripts/common/install_ninja.sh install_ninja.sh
 RUN if [ -n "${NINJA_VERSION}" ]; then bash ./install_ninja.sh; fi
@@ -71,10 +56,6 @@ COPY scripts/common/install_ccache.sh install_ccache.sh
 RUN if [ -n "${CCACHE_VERSION}" ]; then bash ./install_ccache.sh; fi
 RUN rm install_ccache.sh
 RUN ccache --version
-
-# COPY requirements.txt requirements.txt
-# RUN --mount=type=cache,target=/root/.cache/pip \
-#     python3 -m pip install -r requirements.txt
 
 # cuda arch list used by torch
 # can be useful for both `dev` and `test`

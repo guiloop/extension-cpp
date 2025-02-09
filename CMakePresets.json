@@ -14,6 +14,7 @@
                 "CMAKE_EXPORT_COMPILE_COMMANDS": true,
                 "CMAKE_BUILD_TYPE": "Debug",
                 "Python_EXECUTABLE": "${sourceDir}/env/bin/python3",
+                "Python_INCLUDE_DIRS": "",
                 "TARGET_DEVICE": "cuda"
             }
         },

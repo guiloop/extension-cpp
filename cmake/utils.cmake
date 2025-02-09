@@ -4,9 +4,6 @@
 # python, a fatal message `ERR_MSG` is issued.
 #
 function (run_python OUT EXPR ERR_MSG)
-if (NOT Python_EXECUTABLE)
-  set(Python_EXECUTABLE python)
-endif()
   execute_process(
     COMMAND
     "${Python_EXECUTABLE}" "-c" "${EXPR}"
