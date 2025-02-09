@@ -13,8 +13,7 @@
                 "CMAKE_CXX_COMPILER": "/usr/bin/g++",
                 "CMAKE_EXPORT_COMPILE_COMMANDS": true,
                 "CMAKE_BUILD_TYPE": "Debug",
-                "Python_EXECUTABLE": "/usr/bin/python3.10",
-                "Python_INCLUDE_DIRS": "/usr/include/python3.10",
+                "Python_EXECUTABLE": "${sourceDir}/env/bin/python",
                 "TARGET_DEVICE": "cuda"
             }
         },

@@ -17,12 +17,15 @@ TEST(MulAddTest, mymuladd_cuda) {
     const double c = 1.0;
     torch::Tensor output = extension_cpp::mymuladd_cuda(a, b, c);
     
-    // float data_desired[] = {2, 2, 2,
-    //                         2, 2, 2};
-    // const torch::Tensor& desired_output = torch::from_blob(data_desired, {2, 3}, options);
-    // EXPECT_TRUE(torch::allclose(output, desired_output));
+    const torch::Tensor& desired_output = torch::full({2, 3}, 2, options);
+    
+    EXPECT_TRUE(torch::allclose(output, desired_output));
 
-    std::cout << "output: " << output;
+    std::cout << "a: " << a << std::endl;
+    std::cout << "b: " << b << std::endl;
+    std::cout << "c: " << c << std::endl;
+    std::cout << "output: " << output << std::endl;
+    std::cout << "desired_output: " << desired_output << std::endl;
 }
 
 } // namespace extension_cpp
