@@ -29,7 +29,8 @@
                 "CMAKE_CXX_COMPILER": "/usr/bin/g++",
                 "CMAKE_EXPORT_COMPILE_COMMANDS": true,
                 "CMAKE_BUILD_TYPE": "Debug",
-                "Python_EXECUTABLE": "~/miniconda3/envs/pytorch_env/bin/python",
+                "Python_EXECUTABLE": "/Users/cat/miniconda3/envs/pytorch_env/bin/python3.10",
+                "Python_INCLUDE_DIRS": "/Users/cat/miniconda3/envs/pytorch_env/include/python3.10/miniconda3/envs/pytorch_env/include/python3.10",
                 "TARGET_DEVICE": "cpu"
             }
         },
