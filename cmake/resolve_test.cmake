@@ -1,5 +1,5 @@
-# Configure test
-macro (configure_test)
+# Resolve test
+macro (resolve_test)
     include(FetchContent)
     # declare where to find the GTest dependency
     FetchContent_Declare(GoogleTest

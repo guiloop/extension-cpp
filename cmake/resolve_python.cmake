@@ -2,7 +2,7 @@
 # Attempt to find the python package that uses the same python executable as
 # `EXECUTABLE` and is one of the `SUPPORTED_VERSIONS`.
 #
-macro (configure_python EXECUTABLE SUPPORTED_VERSIONS)
+macro (resolve_python EXECUTABLE SUPPORTED_VERSIONS)
   file(REAL_PATH ${EXECUTABLE} EXECUTABLE)
   set(Python_EXECUTABLE ${EXECUTABLE})
   find_package(Python COMPONENTS Interpreter Development.Module Development.SABIModule)

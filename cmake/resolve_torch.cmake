@@ -1,5 +1,5 @@
-# Configure torch
-macro (configure_torch)
+# Resolve torch
+macro (resolve_torch)
     include(${CMAKE_CURRENT_LIST_DIR}/cmake/utils.cmake)
     run_python(TORCH_PREFIX_PATH
         "import torch; print(torch.utils.cmake_prefix_path)"
