@@ -1,4 +1,10 @@
 {
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2,
+    "[python]": {
+        "editor.insertSpaces": true,
+        "editor.tabSize": 4
+    },
     "files.associations": {
         "__bit_reference": "cpp",
         "__config": "cpp",
@@ -119,5 +125,5 @@
         "(lldb) Launch"
     ],
     "cmake.configureArgs": ["-G", "Ninja"],
-    "cmake.buildArgs": ["--config", "Debug", "-j8"]
+    "cmake.buildArgs": ["--config", "Debug", "-j8"],
 }
